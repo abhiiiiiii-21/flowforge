@@ -1,0 +1,167 @@
+@import "tailwindcss/index.css";
+
+/* ─── Design System — design.md ────────────────────────── */
+
+:root,
+[data-theme="dark"] {
+  /* Surfaces */
+  --bg-canvas: #101010;
+  --bg-sidebar: #000000;
+ --bg-node: #202020;
+  --bg-button: #171717;
+  --bg-button-hover: #333333;
+  --bg-input: #171717;
+
+  /* Backwards-compat bridges (older code reads these) */
+  --bg-primary: var(--bg-canvas);
+  --bg-secondary: var(--bg-sidebar);
+  --bg-tertiary: var(--bg-button-hover);
+
+  --border-subtle: rgba(255, 255, 255, 0.04);
+  --border-strong: rgba(255, 255, 255, 0.08);
+
+  --text-primary: #EDEDED;
+  --text-secondary: rgba(237, 237, 237, 0.6);
+  --text-muted: rgba(237, 237, 237, 0.4);
+
+  /* Per-node accents */
+  --accent-text: #EAB308;
+  --accent-image: #3B82F6;
+  --accent-video: #22C55E;
+  --accent-llm: #A855F7;
+  --accent-crop: #A855F7;
+  --accent-frame: #A855F7;
+
+  /* Generic accent (legacy) */
+  --accent: #A855F7;
+  --accent-soft: rgba(168, 85, 247, 0.15);
+
+  --success: #22c55e;
+  --success-soft: rgba(34, 197, 94, 0.15);
+  --error: #ef4444;
+  --error-soft: rgba(239, 68, 68, 0.15);
+  --warning: #f59e0b;
+  --warning-soft: rgba(245, 158, 11, 0.15);
+
+  --node-bg: var(--bg-node);
+  --node-border: transparent;
+  --node-shadow: 0 12px 32px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.02) inset;
+
+  --sidebar-width: 260px;
+  --sidebar-closed-width: 56px;
+  --sidebar-open-width: 240px;
+  --toolbar-height: 52px;
+
+  --background: var(--bg-canvas);
+  --foreground: var(--text-primary);
+}
+
+[data-theme="light"] {
+  --bg-canvas: #F8F8F8;
+  --bg-sidebar: #FFFFFF;
+  --bg-node: #FFFFFF;
+  --bg-button: #F0F0F0;
+  --bg-button-hover: #E4E4E4;
+  --bg-input: #FFFFFF;
+
+  --bg-primary: var(--bg-canvas);
+  --bg-secondary: var(--bg-sidebar);
+  --bg-tertiary: var(--bg-button-hover);
+
+  --border-subtle: rgba(0, 0, 0, 0.06);
+  --border-strong: rgba(0, 0, 0, 0.12);
+
+  --text-primary: #0A0A0A;
+  --text-secondary: rgba(0, 0, 0, 0.7);
+  --text-muted: rgba(0, 0, 0, 0.4);
+
+  --node-bg: var(--bg-node);
+  --node-border: rgba(0, 0, 0, 0.08);
+  --node-shadow: none;
+
+  --background: var(--bg-canvas);
+  --foreground: var(--text-primary);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* ─── Base Reset ──────────────────────────────────────── */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  background: var(--bg-canvas);
+  color: var(--text-primary);
+  font-family: var(--font-geist-sans), 'Suisse Intl', 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Scrollbar ───────────────────────────────────────── */
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+/* ─── Animations ──────────────────────────────────────── */
+
+@keyframes nodePulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+@keyframes flowDash {
+  to { stroke-dashoffset: -20; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideInLeft {
+  from { transform: translateX(-100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@keyframes handleFlash {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+  50% { box-shadow: 0 0 0 6px rgba(239, 68, 68, 0.5); }
+}
+
+.toast-container > div {
+  font-family: var(--font-geist-sans), 'Inter', system-ui, sans-serif !important;
+}
+
+/* ─── Auth pages (Clerk-hosted SignIn/SignUp) ──────────── */
+.auth-page {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: var(--bg-canvas);
+}
